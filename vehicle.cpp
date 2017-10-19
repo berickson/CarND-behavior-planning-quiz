@@ -34,8 +34,14 @@ vector<string> Vehicle::successor_states() {
 }
 
 
+
 double get_cost(int lane, int s, int goal_lane, int goal_s, vector<vector<int>> & other_cars) {
+  double cost = 0;
+
+  cost += fabs(s-goal_s);
   return fabs(lane-goal_lane) - s/10;
+
+
 
 }
 
@@ -51,7 +57,7 @@ void Vehicle::update_state(map<int,vector < vector<int> > > predictions) {
     Vehicle test = Vehicle(this->lane, this->s, this->v, this->a);
     test.state = state;
     test.realize_state(predictions);
-    vector<int> test_state = test.state_at(2);
+    vector<int> test_state = test.state_at(1);
     int lane = test_state[0];
     int s = test_state[1];
     cost += get_cost(lane, s, goal_lane, goal_s, predictions[2]);
